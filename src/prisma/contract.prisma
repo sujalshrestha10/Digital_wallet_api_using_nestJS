@@ -19,3 +19,12 @@ model Post {
   createdAt TimestamptzString @default(now())
   updatedAt temporal.updatedAtString()
 }
+model Wallet {
+  id        Int      @id @default(autoincrement())
+  balance   Decimal  @default("0")
+  currency  String   @default("NPR")
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int      @unique
+  createdAt TimestamptzString @default(now())
+  updatedAt temporal.updatedAtString()
+}

@@ -1,6 +1,6 @@
 import { definePrismaConfig } from "prisma/config";
 import { defineConfig as ormConfig } from "@prisma/orm-postgres/config";
-
+import "dotenv";
 export default definePrismaConfig({
   skills: {
     agents: [],
