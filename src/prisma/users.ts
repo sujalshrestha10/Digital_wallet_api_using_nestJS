@@ -5,7 +5,15 @@ export { db };
 
 export async function listUsers(limit = 10) {
   await seed();
-  const users = await db.orm.public.User.select("id", "email", "username", "name", "createdAt").limit(limit).all();
+  const users = await db.orm.public.User.select(
+    "id",
+    "email",
+    "username",
+    "name",
+    "createdAt",
+  )
+    .limit(limit)
+    .all();
 
   return users.map((user) => ({
     id: String(user.id),
@@ -14,6 +22,20 @@ export async function listUsers(limit = 10) {
     name: user.name ?? null,
     createdAt: user.createdAt,
   }));
+}
+
+export async function createUser(data: {
+  email: string;
+  username?: string;
+  name?: string;
+}) {
+  await seed();
+
+  return db.orm.public.User.create({
+    email: data.email,
+    username: data.username ?? null,
+    name: data.name ?? null,
+  });
 }
 
 export type StarterUser = Awaited<ReturnType<typeof listUsers>>[number];
