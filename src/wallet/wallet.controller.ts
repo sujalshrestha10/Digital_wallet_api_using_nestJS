@@ -22,4 +22,8 @@ export class WalletsController {
   getWallets() {
     return this.walletsService.getWallet();
   }
+  @Post("withdraw")
+  withdraw(@Body() data: { walletId: number; amount: string }) {
+    return this.walletsService.withdraw(data.walletId, data.amount);
+  }
 }

@@ -4,7 +4,6 @@ import { seed } from "./seed.ts";
 export { db };
 
 export async function listUsers(limit = 10) {
-  await seed();
   const users = await db.orm.public.User.select(
     "id",
     "email",
@@ -29,7 +28,7 @@ export async function createUser(data: {
   username?: string;
   name?: string;
 }) {
-  await seed();
+ 
 
   return db.orm.public.User.create({
     email: data.email,
