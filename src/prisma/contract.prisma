@@ -20,11 +20,21 @@ model Post {
   updatedAt temporal.updatedAtString()
 }
 model Wallet {
-  id        Int      @id @default(autoincrement())
-  balance   Decimal  @default("0")
-  currency  String   @default("NPR")
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int      @unique
+  id            Int      @id @default(autoincrement())
+  balance       Decimal  @default("0")
+  currency      String   @default("NPR")
+  user          User     @relation(fields: [userId], references: [id])
+  userId        Int      @unique
+  transactions  Transaction[]
+  createdAt     TimestamptzString @default(now())
+  updatedAt     temporal.updatedAtString()
+}
+
+model Transaction {
+  id        Int       @id @default(autoincrement())
+  wallet    Wallet    @relation(fields: [walletId],references: [id])
+  walletId  Int
+  type      String
+  amount    Decimal
   createdAt TimestamptzString @default(now())
-  updatedAt temporal.updatedAtString()
 }

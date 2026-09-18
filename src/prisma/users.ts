@@ -1,5 +1,4 @@
 import { db } from "./db.ts";
-import { seed } from "./seed.ts";
 
 export { db };
 
