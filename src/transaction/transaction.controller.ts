@@ -14,4 +14,8 @@ export class TransactionController {
   ) {
     return this.transactionService.createTransaction(data);
   }
+  @Get()
+    getTransactions() {
+      return this.transactionService.getTransactions();
+    }
 }

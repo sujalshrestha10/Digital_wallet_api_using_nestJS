@@ -24,4 +24,8 @@ export class TransactionService {
       walletId: data.walletId,
     });
   }
+async getTransactions() {
+    return this.prisma.db.orm.public.Transaction.all();
+  }
+
 }
