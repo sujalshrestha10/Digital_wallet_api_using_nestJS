@@ -24,14 +24,12 @@ export async function listUsers(limit = 10) {
 
 export async function createUser(data: {
   email: string;
-  username?: string;
-  name?: string;
+  username: string;
+  name: string;
 }) {
- 
-
   return db.orm.public.User.create({
     email: data.email,
-    username: data.username ?? null,
+   username: data.username,
     name: data.name ?? null,
   });
 }

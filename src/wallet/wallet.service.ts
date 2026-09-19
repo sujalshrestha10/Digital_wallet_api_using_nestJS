@@ -28,9 +28,6 @@ export class WalletsService {
   }
 
   async deposit(walletId: number, amount: string) {
-    if (!/^\d+(\.\d+)?$/.test(amount) || Number(amount) <= 0) {
-      throw new BadRequestException("Amount must be a positive number");
-    }
     const wallet = await this.prisma.db.orm.public.Wallet.where({
       id: walletId,
     }).first();
@@ -48,9 +45,6 @@ export class WalletsService {
     return this.prisma.db.orm.public.Wallet.all();
   }
   async withdraw(walletId: number, amount: string) {
-    if (!/^\d+(\.\d+)?$/.test(amount) || Number(amount) <= 0) {
-      throw new BadRequestException("Amount must be a positive number");
-    }
     const wallet = await this.prisma.db.orm.public.Wallet.where({
       id: walletId,
     }).first();

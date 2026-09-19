@@ -1,7 +1,7 @@
 import { Body, Controller, Inject, Post, Get } from "@nestjs/common";
 import { TransactionService } from "./transaction.service";
 import { Param } from "@nestjs/common";
-import { CreateTransactionDto } from "./transcation.Dto";
+import { CreateTransactionDto } from "./transcation.dto";
 
 @Controller("transactions")
 export class TransactionController {

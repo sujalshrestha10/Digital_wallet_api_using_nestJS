@@ -1,6 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 
-import { PrismaService } from "./prisma.service";
+import { PrismaService } from "../prisma.service";
+import { CreateUserDto } from "./create-user.dto";
 
 @Injectable()
 export class UsersService {
@@ -9,7 +10,7 @@ export class UsersService {
   async findAll() {
     return this.prisma.listUsers(10);
   }
-  async createUser(data: { email: string; username?: string; name?: string }) {
+  async createUser(data: CreateUserDto) {
     return this.prisma.createUser(data);
   }
 }

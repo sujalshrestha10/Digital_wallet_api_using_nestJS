@@ -1,23 +1,16 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { NotFoundException, BadRequestException } from "@nestjs/common";
+import {
+  Inject,
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
-
+import { CreateTransactionDto } from "./transcation.dto";
 @Injectable()
 export class TransactionService {
   constructor(@Inject(PrismaService) private readonly prisma: PrismaService) {}
 
-  async findAll() {
-    return this.prisma.listUsers(10);
-  }
-  async createUser(data: { email: string; username?: string; name?: string }) {
-    return this.prisma.createUser(data);
-  }
-
-  async createTransaction(data: {
-    amount: string;
-    type: string;
-    walletId: number;
-  }) {
+  async createTransaction(data: CreateTransactionDto) {
     const wallet = await this.prisma.db.orm.public.Wallet.where({
       id: data.walletId,
     }).first();

@@ -8,7 +8,7 @@ export class PrismaService {
   listUsers(limit = 10): Promise<StarterUser[]> {
     return listUsers(limit);
   }
-  createUser(data: { email: string; username?: string; name?: string }) {
+  createUser(data: { email: string; username: string; name: string }) {
     return createUser(data);
   }
 }

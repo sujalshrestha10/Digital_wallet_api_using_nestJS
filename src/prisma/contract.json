@@ -215,7 +215,7 @@
                 }
               },
               "name": {
-                "nullable": true,
+                "nullable": false,
                 "type": {
                   "codecId": "pg/text@1",
                   "kind": "scalar"
@@ -229,7 +229,7 @@
                 }
               },
               "username": {
-                "nullable": true,
+                "nullable": false,
                 "type": {
                   "codecId": "pg/text@1",
                   "kind": "scalar"
@@ -565,7 +565,7 @@
                 "name": {
                   "codecId": "pg/text@1",
                   "nativeType": "text",
-                  "nullable": true
+                  "nullable": false
                 },
                 "updatedAt": {
                   "codecId": "pg/timestamptz-string@1",
@@ -575,7 +575,7 @@
                 "username": {
                   "codecId": "pg/text@1",
                   "nativeType": "text",
-                  "nullable": true
+                  "nullable": false
                 }
               },
               "foreignKeys": [],
@@ -680,7 +680,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "72738919e43ee320516acd5ac9908461f86c71f29ad27f773e847c5dadbda8bd"
+    "storageHash": "62580471a6bf50b2e70bc2b8bdecf88d67fc96752c9bdcccaf841994e231e862"
   },
   "execution": {
     "executionHash": "799319935422242ce440a3e1495d6c0b33fe0e2d154bd07c0f4907a216a6b17e",
