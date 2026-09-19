@@ -59,6 +59,13 @@ export class TransactionService {
       walletId: data.walletId,
     });
   }
+
+  async findByWallet(walletId: number) {
+    return this.prisma.db.orm.public.Transaction.where({
+      walletId,
+    }).all();
+  }
+
   async getTransactions() {
     return this.prisma.db.orm.public.Transaction.all();
   }
