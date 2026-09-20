@@ -6,8 +6,8 @@ export class CreateTransactionDto {
 
   @IsString()
   @IsNotEmpty()
-  @Matches(/^\d+(\.\d+)?$/, {
-    message: "Amount must be a positive number",
+  @Matches(/^(?=.*[1-9])\d+(\.\d+)?$/, {
+    message: "Amount must be a positive number please enter a valid amount",
   })
   amount!: string;
 

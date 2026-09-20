@@ -2,7 +2,7 @@ import {
   Inject,
   Injectable,
   BadRequestException,
-  NotFoundException,
+ 
 } from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
 
@@ -27,38 +27,7 @@ export class WalletsService {
     }
   }
 
-  async deposit(walletId: number, amount: string) {
-    const wallet = await this.prisma.db.orm.public.Wallet.where({
-      id: walletId,
-    }).first();
-
-    if (!wallet) {
-      throw new NotFoundException("Wallet not found");
-    }
-    const newBalance = Number(wallet.balance) + Number(amount);
-
-    await this.prisma.db.orm.public.Wallet.where({ id: walletId }).update({
-      balance: String(newBalance),
-    });
-  }
   async getWallet() {
     return this.prisma.db.orm.public.Wallet.all();
-  }
-  async withdraw(walletId: number, amount: string) {
-    const wallet = await this.prisma.db.orm.public.Wallet.where({
-      id: walletId,
-    }).first();
-
-    if (!wallet) {
-      throw new NotFoundException("Wallet not found");
-    }
-    if (Number(amount) > Number(wallet.balance)) {
-      throw new BadRequestException("Insufficient balance");
-    }
-    const newBalance = Number(wallet.balance) - Number(amount);
-
-    await this.prisma.db.orm.public.Wallet.where({ id: walletId }).update({
-      balance: String(newBalance),
-    });
   }
 }

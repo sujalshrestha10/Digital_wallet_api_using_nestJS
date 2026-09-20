@@ -11,45 +11,45 @@ export class TransactionService {
   constructor(@Inject(PrismaService) private readonly prisma: PrismaService) {}
 
   async createTransaction(data: CreateTransactionDto) {
-    const wallet = await this.prisma.db.orm.public.Wallet.where({
-      id: data.walletId,
-    }).first();
+    return this.prisma.db.transaction(async (tx) => {
+      const wallet = await tx.orm.public.Wallet.where({
+        id: data.walletId,
+      }).first();
 
-    if (!wallet) {
-      throw new NotFoundException("Wallet not found");
-    }
-
-    const amount = Number(data.amount);
-
-    if (!Number.isFinite(amount) || amount <= 0) {
-      throw new BadRequestException("Amount must be a positive number");
-    }
-
-    let newBalance = Number(wallet.balance);
-
-    if (data.type === "deposit") {
-      newBalance += amount;
-    } else if (data.type === "withdraw") {
-      if (amount > newBalance) {
-        throw new BadRequestException("Insufficient balance");
+      if (!wallet) {
+        throw new NotFoundException("Wallet not found");
       }
-      newBalance -= amount;
-    } else {
-      throw new BadRequestException(
-        "Transaction type must be deposit or withdraw",
-      );
-    }
 
-    await this.prisma.db.orm.public.Wallet.where({
-      id: data.walletId,
-    }).update({
-      balance: String(newBalance),
-    });
+      const amount = Number(data.amount);
 
-    return this.prisma.db.orm.public.Transaction.create({
-      amount: data.amount,
-      type: data.type,
-      walletId: data.walletId,
+      if (!Number.isFinite(amount) || amount <= 0) {
+        throw new BadRequestException("Amount must be a positive number");
+      }
+      let newBalance = Number(wallet.balance);
+
+      if (data.type === "deposit") {
+        newBalance += amount;
+      } else if (data.type === "withdraw") {
+        if (amount > newBalance) {
+          throw new BadRequestException("Insufficient balance");
+        }
+        newBalance -= amount;
+      } else {
+        throw new BadRequestException(
+          "Transaction type must be deposit or withdraw",
+        );
+      }
+      await tx.orm.public.Wallet.where({
+        id: data.walletId,
+      }).update({
+        balance: String(newBalance),
+      });
+
+      return tx.orm.public.Transaction.create({
+        amount: data.amount,
+        type: data.type,
+        walletId: data.walletId,
+      });
     });
   }
 
